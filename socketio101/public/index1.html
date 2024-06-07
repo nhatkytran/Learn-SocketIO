@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML 1</title>
+</head>
+
+<body>
+  <h1>HTML 1</h1>
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    const socket = io('http://127.0.0.1:3000');
+
+    socket.on('connect', () => {
+      console.log('Connect Socket successfully!', socket.id);
+
+      socket.emit('messageFromClient', { data: "Hello from the browser" })
+    })
+
+    socket.on('messageFromServer', (data) => {
+      console.log(data);
+    })
+
+    socket.io.on("reconnect", data => {
+      console.log('Reconnect event:', data);
+    });
+  </script>
+</body>
+
+</html>
